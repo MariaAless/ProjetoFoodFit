@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Detalhe da receita{% endblock %}
+
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+
+
+<div class="container text-center">
+  <br>
+  <h2  class="display-4 text-center"> Nesta página você pode editar ou excluir a sua receita</h2> <!-- Título acima do card -->
+  <hr>
+  
+  <div class="card mb-3">
+    <div class="card-body">
+        <div class="col-md-6">
+            <img class="img-fluid" src="{{receita.img.url}}" alt="Imagem da Receita">
+          </div>
+        <h5 class="card-title">Nome</h5>
+        <p class="card-text">{{receita.nome}}</p>
+
+        <h5 class="card-title">Ingredientes</h5>
+        <p class="card-text">{{receita.ingredientes}}</p>
+
+        <h5 class="card-title">Modo de preparo</h5>
+        <p class="card-text">{{receita.modo_preparo}}</p>
+
+        <h5 class="card-title">data_cadastro</h5>
+        <p class="card-text">{{receita.data_cadastro}}</p>
+
+        <h5 class="card-title">Categoria</h5>
+        <p class="card-text">{{receita.categoria}}</p>
+       
+       
+        <a  class="btn btn-primary" href="{% url 'receitaeditar' receita.pk %}">Editar</a>
+        <a  class="btn btn-danger" href="{% url 'delete' receita.pk %}">remover</a>
+    </div>
+  
+   
+</div>
+<a href="#" class="btn btn-secondary">Voltar</a>
+{% endblock 'conteudo'  %}
