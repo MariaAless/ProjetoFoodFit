@@ -1,3 +1,5 @@
+from typing import Any
+from django.db.models.query import QuerySet
 from django.shortcuts import render
 from django.shortcuts import render,get_object_or_404, redirect
 from .models import Receita
@@ -16,12 +18,21 @@ class mural(ListView):
     template_name = 'receita/mural.html'
     model = Receita
     context_object_name = 'receitas'
-class cadastroReceita(CreateView):
+    queryset = Receita.objects.all()
 
+    def get_queryset(self):
+        return self.queryset.filter(usuario=self.request.user)
+
+class cadastroReceita(CreateView):
     form_class = ReceitaForm
+    model = Receita
     template_name = 'receita/formReserva.html'
     success_url = reverse_lazy('home')
   #  success_message = "Reserva criada com sucesso!"
+
+    def form_valid(self, form):
+        form.instance.usuario = self.request.user
+        return super().form_valid(form)
 
 class receitadetalhe(DetailView):
     model = Receita

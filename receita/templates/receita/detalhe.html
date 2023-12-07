@@ -35,6 +35,9 @@
 
         <h5 class="card-title">Categoria</h5>
         <p class="card-text">{{receita.categoria}}</p>
+
+        <h5 class="card-title">Criador:</h5>
+        <p class="card-text">{{receita.usuario.name}}</p>
        
        
         <a  class="btn btn-primary" href="{% url 'receitaeditar' receita.pk %}">Editar</a>

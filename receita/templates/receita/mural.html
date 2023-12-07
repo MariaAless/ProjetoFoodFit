@@ -16,14 +16,17 @@
         <div class="col-md-4 mb-4">
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
+                    
                     <img width="50%" src="{{ receita.img.url }}" class="card-img-top" alt="{{ receita.nome }}">
                     <h5 class="card-title">{{ receita.nome }}</h5>
                     <p class="card-text">Ingredientes: {{ receita.ingredientes }}</p>
                     <p class="card-text">Categoria: {{ receita.categoria.nome }}</p>
-                    <p class="card-text">Criador: {{ receita.usuario.nome }}</p>
+                    <p class="card-text">Criador: {{ receita.usuario.name }}</p>
                     <br>
                     <br>
                     <a href="{% url 'receitadetalhe' receita.pk %}" class="btn btn-info">Acessar</a>
+
+                    
                     
                 </div>
             </div>

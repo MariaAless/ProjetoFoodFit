@@ -90,9 +90,9 @@ AUTHENTICATION_BACKENDS = [
 
 
 WSGI_APPLICATION = 'main.wsgi.application'
-AUTH_USER_MODEL = "users.User"
+AUTH_USER_MODEL = 'users.User'
 LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "index"
+LOGOUT_REDIRECT_URL = "home"
 
 
 # Database
@@ -168,7 +168,7 @@ MEDIA_URL = '/media/'
 
 # STATIC
 # ------------------------------------------------------------------------------
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 
