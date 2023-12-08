@@ -6,12 +6,19 @@ from .models import Receita
 from .form import ReceitaForm,CategoriaForm
 from django.views.generic import ListView,CreateView,DeleteView,DetailView, UpdateView,TemplateView
 from django.urls import reverse_lazy
+from django.db.models import Q
 
-def index(request):
-    return render(request, 'receita/index.html')
+class index(TemplateView):
+    template_name = 'receita/index.html'
 
-def home(request):
-    return render(request, 'receita/home.html')
+class home(ListView):
+    template_name = 'receita/home.html'
+    model = Receita
+    context_object_name = 'receitas'
+    queryset = Receita.objects.all()
+
+    def get_queryset(self):
+        return self.queryset.filter(usuario=self.request.user)
 
 
 class mural(ListView):
@@ -21,7 +28,13 @@ class mural(ListView):
     queryset = Receita.objects.all()
 
     def get_queryset(self):
-        return self.queryset.filter(usuario=self.request.user)
+        query = self.request.GET.get('q')
+        if query:
+            return Receita.objects.filter(Q(nome__icontains=query) | Q(categoria__nome__icontains=query))
+        else:
+            return Receita.objects.all()
+
+
 
 class cadastroReceita(CreateView):
     form_class = ReceitaForm

@@ -32,6 +32,3 @@ class CategoriaForm(forms.ModelForm):
       
         }
 
-
-        
-    

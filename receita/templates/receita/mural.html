@@ -10,7 +10,12 @@
 <br>
 <br>
 <br>
-
+<form method="get" action="{% url 'mural' %}">
+    <input type="text" name="q" placeholder="Buscar receitas">
+    <button type="submit">Buscar</button>
+</form>
+<br>
+<br>
 <div class="row">
     {% for receita in receitas %}
         <div class="col-md-4 mb-4">
@@ -21,7 +26,7 @@
                     <h5 class="card-title">{{ receita.nome }}</h5>
                     <p class="card-text">Ingredientes: {{ receita.ingredientes }}</p>
                     <p class="card-text">Categoria: {{ receita.categoria.nome }}</p>
-                    <p class="card-text">Criador: {{ receita.usuario.name }}</p>
+                    <p class="card-text">Criador: {{ receita.usuario}}</p>
                     <br>
                     <br>
                     <a href="{% url 'receitadetalhe' receita.pk %}" class="btn btn-info">Acessar</a>

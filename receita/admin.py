@@ -10,3 +10,4 @@ class ReceitaAdmin(admin.ModelAdmin):
     list_display = ('nome','ingredientes', 'modo_preparo', 'data_cadastro')
 
 admin.site.register(Receita, ReceitaAdmin)
+
