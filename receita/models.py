@@ -20,7 +20,7 @@ class Receita(models.Model):
     ingredientes = models.TextField()
     modo_preparo = models.TextField()
     data_cadastro=models.DateField(default=date.today)
-    categoria = models.ForeignKey(Categoria, on_delete=models.DO_NOTHING)
+    categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True, default=None)
 
   
@@ -32,3 +32,11 @@ class Receita(models.Model):
         verbose_name='Receita'
 
 
+class Comentario(models.Model):
+    usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+    receita = models.ForeignKey(Receita, on_delete=models.CASCADE)
+    texto = models.TextField()
+    data_criacao = models.DateTimeField(default=timezone.now)
+
+    def _str_(self):
+        return f"Comentário por {self.usuario.username} em {self.receita.nome}"

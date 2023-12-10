@@ -40,11 +40,25 @@
         <p class="card-text">{{receita.usuario}}</p>
        
        
-        <a  class="btn btn-primary" href="{% url 'receitaeditar' receita.pk %}">Editar</a>
-        <a  class="btn btn-danger" href="{% url 'delete' receita.pk %}">remover</a>
+       
     </div>
   
-   
+    <div class="comentarios">
+      <h2>Comentários</h2>
+      {% for comentario in comentarios %}
+          <p><strong>{{ comentario.usuario.username }}</strong>: {{ comentario.texto }}</p>
+          <p class="text-muted">{{ comentario.data_criacao }}</p>
+      {% endfor %}
+      
+<!-- Formulário para Adicionar Comentário -->
+      <form method="post" action="{% url 'receitadetalheMural' pk=receita.pk %}">
+          {% csrf_token %}
+          {{ form_comentario.as_p }}
+          <button type="submit">Adicionar Comentário</button>
+      </form>
+  </div>
+
+  
 </div>
 <a href="#" class="btn btn-secondary">Voltar</a>
 {% endblock 'conteudo'  %}

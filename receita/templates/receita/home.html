@@ -11,6 +11,22 @@
 <br>
 <br>
 
+<div class="container">
+
+<!--           MENSAGEM                  -->
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+
+    {{ message }}
+</div>
+
+</div>
+{% endfor %}
+{% endif %}
+
+<!--       FIM MENSAGEM                        -->
+
     <a href="{% url 'cadastroReceita' %}" class="btn btn-primary">Adicionar Novo</a>
     <div class="row">
         {% for receita in receitas %}
@@ -25,7 +41,7 @@
                         <p class="card-text">Criador: {{ receita.usuario }}</p>
                         <br>
                         <br>
-                        <a href="{% url 'receitadetalhe' receita.pk %}" class="btn btn-info">Acessar</a>
+                        <a href="{% url 'receitadetalheUsuario' receita.pk %}" class="btn btn-info">Acessar</a>
 
                         
                         
@@ -34,5 +50,5 @@
             </div>
         {% endfor %}
     </div>    
-
+</div>
 {% endblock  %}

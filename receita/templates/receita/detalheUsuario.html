@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Detalhe da receita{% endblock %}
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+
+<div class="container text-center" style="color: #000; font-family: 'Helvetica', sans-serif;">
+  <br>
+  <h2 class="display-4"> Nesta página você pode editar ou excluir a sua receita</h2>
+  <!-- Título acima do card -->
+  <hr>
+
+  <div class="card mb-3 mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <img class="img-fluid" src="{{receita.img.url}}" alt="Imagem da Receita" style="max-width: 100%;">
+        </div>
+        <div class="col-md-6">
+          <h5 class="card-title">Nome</h5>
+          <p class="card-text">{{receita.nome}}</p>
+
+          <h5 class="card-title">Ingredientes</h5>
+          <p class="card-text">{{receita.ingredientes}}</p>
+
+          <h5 class="card-title">Modo de preparo</h5>
+          <p class="card-text">{{receita.modo_preparo}}</p>
+
+          <h5 class="card-title">Data de cadastro</h5>
+          <p class="card-text">{{receita.data_cadastro}}</p>
+
+          <h5 class="card-title">Categoria</h5>
+          <p class="card-text">{{receita.categoria}}</p>
+
+          <h5 class="card-title">Criador:</h5>
+          <p class="card-text">{{receita.usuario}}</p>
+
+          <div class="d-flex justify-content-center mt-3">
+            <a class="btn btn-primary mr-2" href="{% url 'receitaeditar' receita.pk %}">Editar</a>
+            <a class="btn btn-danger" href="{% url 'delete' receita.pk %}">Remover</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center mt-3">
+    <h2>Comentários</h2>
+  
+    <!-- Formulário para Adicionar Comentário -->
+    <form method="post" action="{% url 'receitadetalheUsuario' pk=receita.pk %}" class="form-inline d-flex justify-content-center">
+      {% csrf_token %}
+    
+      <div class="form-group mb-2" style="width: 70%; display: inline-block; justify-content: start;">
+        {{ form_comentario.texto }}
+      </div>
+    
+      <button type="submit" class="btn btn-primary mb-2 ml-2" style="display: inline-block;justify-content: start; width: 9%; ">Adicionar</button>
+    </form>
+    
+  
+    {% for comentario in comentarios %}
+      <p><strong>{{ comentario.usuario.username }}</strong>: {{ comentario.texto }}</p>
+      <p class="text-muted">{{ comentario.data_criacao }}</p>
+    {% endfor %}
+  </div>
+  
+{% endblock 'conteudo' %}

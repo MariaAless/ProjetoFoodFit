@@ -1,5 +1,5 @@
 from django import forms
-from .models import Receita, Categoria
+from .models import Receita, Comentario
 from datetime import date
 
 
@@ -19,16 +19,17 @@ class ReceitaForm(forms.ModelForm):
       
         }
        
-class CategoriaForm(forms.ModelForm):
+
+
+
+class ComentarioForm(forms.ModelForm):
     class Meta:
-        model = Categoria
-        fields = "__all__"
-
-    
-
+        model = Comentario
+        fields = ['texto']
         widgets = {
-            'nome' : forms.TextInput(attrs={'class': 'form-control'}),
-           
-      
+            'texto': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Adicione um comentário...'}),
+        }
+        labels = {
+            'texto': False,
         }
 

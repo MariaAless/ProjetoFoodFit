@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Lista de Categoria{% endblock %}
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+
+    <div class="row mt-3">
+        <div class="col-md-12 text-center"> <!-- Adicione a classe text-center para centralizar o título -->
+            <h1 style="color: #333; font-size: 36px; font-weight: bold;">Área Administrativa</h1>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Receitas</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total de Receitas Cadastradas</h5>
+                    <p class="card-text">{{ total_receitas }}</p> <!-- Substitua pelo valor real -->
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Categoria</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total de Categorias cadastradas</h5>
+                    <p class="card-text">{{ total_categoria }}</p> <!-- Substitua pelo valor real -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h2>Lista de Categorias</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for categoria in listas.categorias %}
+                    <tr>
+                        <td>{{ categoria.nome }}</td>
+                        <td>
+                            <a href="{% url 'atualizarCategoria' categoria.pk %}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
+                            <a href="{% url 'deleteCategoria' categoria.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
+                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-search"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="2">Nenhuma categoria cadastrada</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="{% url 'cadastroCategoria' %}" class="btn btn-primary">Adicionar Categoria</a>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <h2>Lista de Receitas</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Imagem</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Ingredientes</th>
+                        <th scope="col">Data de Cadastro</th>
+                        <th scope="col">Modo de Preparo</th>
+                        <th scope="col">Categoria</th>
+                        <th scope="col">Usuário</th>
+                        <th scope="col">Opções</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for receita in listas.receitas %}
+                    <tr>
+                        <td>{{ receita.img }}</td>
+                        <td>{{ receita.nome }}</td>
+                        <td>{{ receita.ingredientes }}</td>
+                        <td>{{ receita.data_cadastro }}</td>
+                        <td>{{ receita.modo_preparo }}</td>
+                        <td>{{ receita.categoria }}</td>
+                        <td>{{ receita.usuario }}</td>
+                        <td class="d-flex">
+                            <a href="#" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="btn btn-danger btn-sm mr-2"><i class="fas fa-trash-alt"></i></a>
+                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-search"></i></a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="8">Nenhuma receita cadastrada</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+{% endblock 'conteudo' %}

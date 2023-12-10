@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Forms da Categoria{% endblock %}
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+<br>
+<div class="mt-5">
+
+    <h2>Formulário</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="form-group">
+            <label for="exampleInputPassword1">Nome</label>
+      
+            {{form.nome}}
+        </div>
+
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+      
+         <a class='btn btn-secondary' href= "#"> Voltar </a>
+    </form>
+</div>
+
+{% endblock 'conteudo' %}
