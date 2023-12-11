@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Forms{% endblock %}
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <!-- Card preto acinzentado para o nome do formulário -->
+            <div style="background-color: #151819" class="card  text-white mb-3">
+                <div class="card-body text-center">
+                    <h2>Formulário</h2>
+                </div>
+            </div>
+
+            <!-- Card preto acinzentado arredondado para o formulário -->
+            <div style="background-color: #151819" class="card text-white rounded-lg p-3">
+                <form class="mx-auto" method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+
+                    <div class="form-group col-md-15 mx-auto">
+                        <label for="{{ form.nome.id_for_label }}">Nome:</label>
+                        {{ form.nome }}
+                    </div>
+                    <div class="form-group col-md-15 mx-auto">
+                        <label for="{{ form.ingredientes.id_for_label }}">Ingredientes:</label>
+                        {{ form.ingredientes }}
+                    </div>
+                    <div class="form-group col-md-15 mx-auto">
+                        <label for="{{ form.modo_preparo.id_for_label }}">Modo de preparo:</label>
+                        {{ form.modo_preparo }}
+                    </div>
+                    <div class="form-group col-md-15 mx-auto">
+                        <label for="{{ form.data_cadastro.id_for_label }}">Data do cadastro:</label>
+                        {{ form.data_cadastro }}
+                    </div>
+                    <div class="form-group col-md-15 mx-auto">
+                        <label for="{{ form.categoria.id_for_label }}">Categoria:</label>
+                        {{ form.categoria }}
+                    </div>
+                    <div class="form-group col-md-15 mx-auto">
+                        <label for="{{ form.img.id_for_label }}">Imagem:</label>
+                        {{ form.img }}
+                    </div>
+
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <a class='btn btn-secondary' href="#">Voltar</a>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock 'conteudo' %}

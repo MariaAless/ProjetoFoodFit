@@ -41,7 +41,7 @@ class mural(ListView):
 class cadastroReceita(CreateView,views.SuccessMessageMixin):
     form_class = ReceitaForm
     model = Receita
-    template_name = 'receita/formReserva.html'
+    template_name = 'receita/formReceita.html'
     success_url = reverse_lazy('home')
     
 
@@ -109,7 +109,7 @@ class receitaeditar(UpdateView):
   model = Receita
   form_class =  ReceitaForm
   success_url = reverse_lazy("mural")
-  template_name = 'receita/formReserva.html'
+  template_name = 'receita/formReceita.html'
  # success_message = "Reserva atualizada com sucesso!"
 class delete(DeleteView):
     model = Receita

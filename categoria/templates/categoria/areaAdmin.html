@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% include 'pagination_buttons.html' %}
 
 {% block title %}Lista de Categoria{% endblock %}
 
@@ -11,32 +12,46 @@
 <div class="container">
 
     <div class="row mt-3">
-        <div class="col-md-12 text-center"> <!-- Adicione a classe text-center para centralizar o título -->
+        <div class="col-md-12 text-center">
             <h1 style="color: #333; font-size: 36px; font-weight: bold;">Área Administrativa</h1>
         </div>
     </div>
-
+    <hr>
+<!--                   QUANTIDADES                                              -->
     <div class="row mt-3">
-        <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3">
-                <div class="card-header">Receitas</div>
-                <div class="card-body">
-                    <h5 class="card-title">Total de Receitas Cadastradas</h5>
-                    <p class="card-text">{{ total_receitas }}</p> <!-- Substitua pelo valor real -->
-                </div>
-            </div>
-        </div>
-
+       
         <div class="col-md-4">
             <div class="card text-white bg-success mb-3">
                 <div class="card-header">Categoria</div>
                 <div class="card-body">
                     <h5 class="card-title">Total de Categorias cadastradas</h5>
-                    <p class="card-text">{{ total_categoria }}</p> <!-- Substitua pelo valor real -->
+                    <p class="card-text">{{ total_categoria }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Receitas</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total de Receitas Cadastradas</h5>
+                    <p class="card-text">{{ total_receitas }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card text-white bg-danger mb-3">
+                <div class="card-header">Usuarios</div>
+                <div class="card-body">
+                    <h5 class="card-title">Total de usuários cadastrados</h5>
+                    <p class="card-text">{{ total_usuarios }}</p>
                 </div>
             </div>
         </div>
     </div>
+<!--                  FIM  QUANTIDADES                                              -->
+<a href="{% url 'cadastroCategoria' %}" class="btn btn-primary">Adicionar Categoria</a>
+<!--                 LISTAS DE TABELAS                                             -->
 
     <div class="row mt-3">
         <div class="col-md-12">
@@ -49,7 +64,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for categoria in listas.categorias %}
+                    {% for categoria in categorias %}
                     <tr>
                         <td>{{ categoria.nome }}</td>
                         <td>
@@ -65,7 +80,45 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="{% url 'cadastroCategoria' %}" class="btn btn-primary">Adicionar Categoria</a>
+            
+            <!-- Adicione a paginação para a lista de categorias -->
+            <div class="pagination mt-3">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if categorias.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?categorias_page=1" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?categorias_page={{ categorias.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% for pg in categorias.paginator.page_range %}
+                            <li class="page-item {% if categorias.number == pg %}active{% endif %}">
+                                <a class="page-link" href="?categorias_page={{ pg }}">{{ pg }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if categorias.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?categorias_page={{ categorias.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?categorias_page={{ categorias.paginator.num_pages }}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+            
+            
         </div>
     </div>
 
@@ -86,7 +139,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for receita in listas.receitas %}
+                    {% for receita in receitas %}
                     <tr>
                         <td>{{ receita.img }}</td>
                         <td>{{ receita.nome }}</td>
@@ -108,13 +161,118 @@
                     {% endfor %}
                 </tbody>
             </table>
+            
+            <!-- Adicione a paginação para a lista de receitas -->
+            <div class="pagination mt-3">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if receitas.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?receitas_page=1" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?receitas_page={{ receitas.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% for pg in receitas.paginator.page_range %}
+                            <li class="page-item {% if receitas.number == pg %}active{% endif %}">
+                                <a class="page-link" href="?receitas_page={{ pg }}">{{ pg }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if receitas.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?receitas_page={{ receitas.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?receitas_page={{ receitas.paginator.num_pages }}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 
-</div>
+    <div class="row mt-3">
+        <div class="col-md-12">
+            <!-- Adicione esta tabela para exibir a lista de usuários -->
+            <h2>Lista de Usuarios</h2>
+            <table class="table">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th scope="col">Opções</th>
+                        <!-- Adicione mais colunas conforme necessário -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.username }}</td>
+                            <td>{{ usuario.email }}</td>
+                            <td class="d-flex">
+                                <a href="#" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="btn btn-danger btn-sm mr-2"><i class="fas fa-trash-alt"></i></a>
+                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-search"></i></a>
+                            </td>
+                            <!-- Adicione mais colunas conforme necessário -->
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
 
+            <!-- Adicione a paginação para a lista de usuários -->
+            <div class="pagination mt-3">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if usuarios.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?usuarios_page=1" aria-label="First">
+                                    <span aria-hidden="true">&laquo;&laquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?usuarios_page={{ usuarios.previous_page_number }}" aria-label="Previous">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                        {% for pg in usuarios.paginator.page_range %}
+                           
+                    
+                            <li class="page-item {% if usuarios.number == pg %}active{% endif %}">
+                                <a class="page-link" href="?usuarios_page={{ pg }}">{{ pg }}</a>
+                            </li>
+                        {% endfor %}
+                        {% if usuarios.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?usuarios_page={{ usuarios.next_page_number }}" aria-label="Next">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="?usuarios_page={{ usuarios.paginator.num_pages }}" aria-label="Last">
+                                    <span aria-hidden="true">&raquo;&raquo;</span>
+                                </a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+                </div>
 
+            </div>
+            </div>
 
-
-
-{% endblock 'conteudo' %}
+            {% endblock 'conteudo' %}

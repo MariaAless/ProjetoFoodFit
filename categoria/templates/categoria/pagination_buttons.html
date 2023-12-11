@@ -1,0 +1,25 @@
+<!-- _pagination_buttons.html -->
+
+{% if paginator.num_pages > 1 %}
+  <div class="pagination mt-3">
+    <ul class="pagination justify-content-center">
+      {% if page_obj.has_previous %}
+        <li class="page-item"><a class="page-link" href="?{{ page_key }}=1">&laquo;&laquo;</a></li>
+        <li class="page-item"><a class="page-link" href="?{{ page_key }}={{ page_obj.previous_page_number }}">&laquo;</a></li>
+      {% endif %}
+      
+      {% for i in page_obj.paginator.page_range %}
+        {% if page_obj.number == i %}
+          <li class="page-item active"><span class="page-link">{{ i }}</span></li>
+        {% else %}
+          <li class="page-item"><a class="page-link" href="?{{ page_key }}={{ i }}">{{ i }}</a></li>
+        {% endif %}
+      {% endfor %}
+      
+      {% if page_obj.has_next %}
+        <li class="page-item"><a class="page-link" href="?{{ page_key }}={{ page_obj.next_page_number }}">&raquo;</a></li>
+        <li class="page-item"><a class="page-link" href="?{{ page_key }}={{ paginator.num_pages }}">&raquo;&raquo;</a></li>
+      {% endif %}
+    </ul>
+  </div>
+{% endif %}

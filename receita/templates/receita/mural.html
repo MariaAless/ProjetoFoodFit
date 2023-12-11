@@ -10,10 +10,21 @@
 <br>
 <br>
 <br>
-<form method="get" action="{% url 'mural' %}">
-    <input type="text" name="q" placeholder="Buscar receitas">
-    <button type="submit">Buscar</button>
-</form>
+
+<div class="container">
+  
+    <div class="col-9 search-div">
+        <form method="get" action="{% url 'mural' %}" id="search-form">
+            <div class="input-group">
+                <input class="form-control" type="text" id="search" name="q" placeholder="Digite o nome da receita para buscar...">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-success ">Buscar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+    
 <br>
 <br>
 <div class="row">
@@ -38,7 +49,7 @@
         </div>
     {% endfor %}
 </div>    
-
+</div>
 
 
 {% endblock  %}

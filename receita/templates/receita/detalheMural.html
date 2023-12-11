@@ -11,54 +11,102 @@
 <br>
 
 
-<div class="container text-center">
-  <br>
-  <h2  class="display-4 text-center"> Nesta página você pode editar ou excluir a sua receita</h2> <!-- Título acima do card -->
-  <hr>
-  
-  <div class="card mb-3">
-    <div class="card-body">
-        <div class="col-md-6">
-            <img class="img-fluid" src="{{receita.img.url}}" alt="Imagem da Receita">
-          </div>
-        <h5 class="card-title">Nome</h5>
-        <p class="card-text">{{receita.nome}}</p>
+<div class="container text-center" style="color: #000; font-family: 'Helvetica', sans-serif;">
+    <br>
+    <h2 class="display-4"> Nesta página você pode editar ou excluir a sua receita</h2>
+    <!-- Título acima do card -->
+    <hr>
 
-        <h5 class="card-title">Ingredientes</h5>
-        <p class="card-text">{{receita.ingredientes}}</p>
 
-        <h5 class="card-title">Modo de preparo</h5>
-        <p class="card-text">{{receita.modo_preparo}}</p>
+    <div class="row justify-content-center">
+        <div class="col-md-10"> <!-- Ajuste a largura conforme necessário -->
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="card mb-3 mx-auto" style="max-width: 1000px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12"> <!-- Alterado para col-md-12 para ocupar toda a largura -->
+                                    <img class="img-fluid" src="{{receita.img.url}}" alt="Imagem da Receita"
+                                        style="width: 100%;">
+                                </div>
+                                <div class="col-md-12 mt-3">
+                                    <div class="col-md-12 mt-3">
+                                        <!-- Adicionado mt-3 para espaçamento entre a imagem e o conteúdo -->
+                                        <h5 class="card-title text-left">Nome</h5>
+                                        <p class="card-text text-left">{{receita.nome}}</p>
+                                   
+                                        <h5 class="card-title text-left">Ingredientes</h5>
+                                        <p class="card-text text-left">{{receita.ingredientes}}</p>
+                                   
+                                        <h5 class="card-title text-left">Modo de preparo</h5>
+                                        <p class="card-text text-left">{{receita.modo_preparo}}</p>
+                                   
+                                        <h5 class="card-title text-left">Data de cadastro</h5>
+                                        <p class="card-text text-left">{{receita.data_cadastro}}</p>
+                                   
+                                        <h5 class="card-title text-left">Categoria</h5>
+                                        <p class="card-text text-left">{{receita.categoria}}</p>
+                                   
+                                        <h5 class="card-title text-left">Criador:</h5>
+                                        <p class="card-text text-left">{{receita.usuario}}</p>
+                                    </div>
 
-        <h5 class="card-title">data_cadastro</h5>
-        <p class="card-text">{{receita.data_cadastro}}</p>
 
-        <h5 class="card-title">Categoria</h5>
-        <p class="card-text">{{receita.categoria}}</p>
 
-        <h5 class="card-title">Criador:</h5>
-        <p class="card-text">{{receita.usuario}}</p>
-       
-       
-       
+
+                                    <!-- Botões de Editar/Remover -->
+                                    <div class="container text-right mt-3">
+                                        <a class="btn btn-primary mr-2"
+                                            href="{% url 'receitaeditar' receita.pk %}">Editar</a>
+                                        <a class="btn btn-danger" href="{% url 'delete' receita.pk %}">Remover</a>
+                                    </div>
+
+
+                                    <!-- Formulário para Adicionar Comentário -->
+                                    <form method="post" action="{% url 'receitadetalheMural' pk=receita.pk %}"
+                                        class="form-inline d-flex justify-content-start mt-3">
+                                        {% csrf_token %}
+                                        <div class="input-group input-group-sm mb-2" style="width: 98%;">
+                                            <!-- Ajuste a largura conforme necessário -->
+                                            {{ form_comentario.texto }}
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-sm btn-primary">Comentar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                    <!-- Comentários -->
+                                    <div class="container text-left mt-3">
+                                        <h2>Comentários</h2>
+
+
+                                        {% for comentario in comentarios %}
+                                        <div style="margin-bottom: 15px; overflow: hidden;">
+                                            <div style="width: 100%;"> <!-- Ajuste a largura conforme necessário -->
+                                                <p><strong>{{ comentario.usuario.username }}</strong> - <span class="text-muted">{{ comentario.data_criacao|timesince }}</span></p>
+                                                <p>{{ comentario.texto }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  
-    <div class="comentarios">
-      <h2>Comentários</h2>
-      {% for comentario in comentarios %}
-          <p><strong>{{ comentario.usuario.username }}</strong>: {{ comentario.texto }}</p>
-          <p class="text-muted">{{ comentario.data_criacao }}</p>
-      {% endfor %}
-      
-<!-- Formulário para Adicionar Comentário -->
-      <form method="post" action="{% url 'receitadetalheMural' pk=receita.pk %}">
-          {% csrf_token %}
-          {{ form_comentario.as_p }}
-          <button type="submit">Adicionar Comentário</button>
-      </form>
-  </div>
-
-  
 </div>
-<a href="#" class="btn btn-secondary">Voltar</a>
-{% endblock 'conteudo'  %}
+
+
+
+
+<a href="#" class="btn btn-secondary mt-3">Voltar</a>
+</div>
+
+
+{% endblock 'conteudo' %}
