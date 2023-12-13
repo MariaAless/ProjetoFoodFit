@@ -42,7 +42,7 @@ class areaAdmin(ListView):
         return render(request, self.template_name, context)
 
 
-class cadastroCategoria(CreateView):
+class cadastroCategoria(GerentePermission,CreateView):
     form_class = CategoriaForm
     model = Categoria
     template_name = 'categoria/formCategoria.html'
@@ -66,12 +66,13 @@ class atualizarCategoria(views.SuccessMessageMixin,UpdateView):
 
 
 
-
-
 class delete(DeleteView):
     model = Receita
     template_name = 'receita/confirm.html'
     success_url = reverse_lazy("areaAdmin")
     context_object_name= "receitas"
   #  success_message = "Reserva deletada com sucesso!"
-
+class DetalheUsuario(DetailView):
+    model = User
+    template_name = 'categoria/detalhe_usuario.html'
+    context_object_name = 'usuario'

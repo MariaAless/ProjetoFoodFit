@@ -1,34 +1,94 @@
-{% extends "account/base_entrance.html" %}
+{% extends "base.html" %}
 {% load i18n %}
-{% load allauth account socialaccount %}
-{% block head_title %}
-    {% trans "Sign In" %}
-{% endblock head_title %}
-{% block content %}
-    {% element h1 %}
-        {% trans "Sign In" %}
-    {% endelement %}
-    <p>
-        {% blocktrans %}If you have not created an account yet, then please
-    <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}
-    </p>
-    {% url 'account_login' as login_url %}
-    {% element form form=form method="post" action=login_url tags="entrance,login" %}
-        {% slot body %}
-            {% csrf_token %}
-            {% element fields form=form unlabeled=True %}
-            {% endelement %}
-            {% if redirect_field_value %}
-                <input type="hidden"
-                       name="{{ redirect_field_name }}"
-                       value="{{ redirect_field_value }}" />
-            {% endif %}
-        {% endslot %}
-        {% slot actions %}
-            {% element button type="submit" tags="prominent,login" %}
-                {% trans "Sign In" %}
-            {% endelement %}
-        {% endslot %}
-    {% endelement %}
-    {% include "socialaccount/snippets/login.html" with page_layout="entrance" %}
-{% endblock content %}
+{% load account socialaccount %}
+{% load static %}
+
+{% block head_title %}{% translate "Sign In" %}{% endblock head_title %}
+
+{% block 'conteudo' %}
+<br>
+<br>
+<br>
+<div class="container mt-4">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-md-6 col-sm-12 mb-4">
+      <!-- Aumente o valor de mb-4 para ajustar o espaço entre a imagem e o formulário -->
+      <div class="div-login-background">
+        <img class="img-login-lady img-fluid" src="{% static 'img/login.png' %}" alt="Imagem de Login" />
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-5 col-xl-5 col-12">
+      <h1 class="text-h1">{% translate "Acesso ao Sistema" %}</h1>
+        <hr>
+
+      <p class="first-access-href">
+        <a href="{% url 'account_signup' %}" >{% translate "Primeiro Acesso?" %}Cadastre-se</a>
+      </p>
+    
+     
+      <form class="login" method="POST" action="{% url 'account_login' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="id_login">{% translate "Nome:" %}</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user" aria-hidden="true"></i></span>
+            </div>
+            <input type="text" name="{{ form.login.name }}" id="id_login" class="form-control" required placeholder="{% translate 'Digite seu nome de usuário.' %}">
+          </div>
+      
+        </div>
+        
+        <div class="form-group">
+          <label for="id_password">{% translate "Senha:" %}</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-lock" aria-hidden="true"></i></span>
+            </div>
+            <input type="password" name="{{ form.password.name }}" id="id_password" class="form-control" required placeholder="{% translate 'Digite sua senha.' %}">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" aria-label="Mostrar senha" onclick="togglePassword('id_password')">
+                <i class="fas fa-eye" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {% if redirect_field_value %}
+          <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+        {% endif %}
+        
+        
+        
+        <div class="form-group mb-1">
+          <div class="form-check">
+            <input class="form-check-input" id="keep_connected_checkbox" name="keep_connected_checkbox" type="checkbox" aria-label="Manter-me conectado" />
+            <label class="form-check-label" for="keep_connected_checkbox">{% translate "Manter-me conectado" %}</label>
+          </div>
+        </div>
+        <br>
+        
+        <button class="btn btn-primary btn-block" type="submit">{% translate "Sign In" %}</button>
+      </form>
+    
+    </div>
+  </div>
+</div>
+
+<script>
+  function togglePassword() {
+    const passwordInput = document.getElementById('id_password');
+    const toggleButton = document.querySelector('.btn-outline-secondary');
+
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+      toggleButton.innerHTML = '<i class="fas fa-eye-slash" aria-hidden="true"></i>';
+    } else {
+      passwordInput.type = 'password';
+      toggleButton.innerHTML = '<i class="fas fa-eye" aria-hidden="true"></i>';
+    }
+  }
+</script>
+
+{% endblock 'conteudo' %}

@@ -8,7 +8,7 @@ urlpatterns = [
     path('cadastroCategoria/',views.cadastroCategoria.as_view(), name='cadastroCategoria'),
     path('categoria/atualizarCategoria/<int:pk>/',views.atualizarCategoria.as_view(), name='atualizarCategoria'),
     path('categoria/deleteCategoria/<int:pk>/',views.deleteCategoria.as_view(), name='deleteCategoria'),
-  
+    path('categoria/detalheUsuario/<int:pk>/', views.DetalheUsuario.as_view(), name='detalhe_usuario'),
    
 
     

@@ -12,12 +12,7 @@
 
 
 <div class="container text-center" style="color: #000; font-family: 'Helvetica', sans-serif;">
-    <br>
-    <h2 class="display-4"> Nesta página você pode editar ou excluir a sua receita</h2>
-    <!-- Título acima do card -->
-    <hr>
-
-
+   
     <div class="row justify-content-center">
         <div class="col-md-10"> <!-- Ajuste a largura conforme necessário -->
             <div class="card bg-light">
@@ -50,18 +45,12 @@
                                         <h5 class="card-title text-left">Criador:</h5>
                                         <p class="card-text text-left">{{receita.usuario}}</p>
                                     </div>
-
-
-
-
-                                    <!-- Botões de Editar/Remover -->
-                                    <div class="container text-right mt-3">
-                                        <a class="btn btn-primary mr-2"
-                                            href="{% url 'receitaeditar' receita.pk %}">Editar</a>
-                                        <a class="btn btn-danger" href="{% url 'delete' receita.pk %}">Remover</a>
-                                    </div>
-
-
+                                    <br>
+                                    <br>
+                                    <!-- Comentários -->
+                                 <div class="container text-left mt-3">
+                                                                            
+                                    <h2>Comentários</h2>
                                     <!-- Formulário para Adicionar Comentário -->
                                     <form method="post" action="{% url 'receitadetalheMural' pk=receita.pk %}"
                                         class="form-inline d-flex justify-content-start mt-3">
@@ -76,9 +65,7 @@
                                     </form>
 
 
-                                    <!-- Comentários -->
-                                    <div class="container text-left mt-3">
-                                        <h2>Comentários</h2>
+                                  
 
 
                                         {% for comentario in comentarios %}

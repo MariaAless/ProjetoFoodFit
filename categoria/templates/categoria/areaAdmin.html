@@ -50,7 +50,9 @@
         </div>
     </div>
 <!--                  FIM  QUANTIDADES                                              -->
-<a href="{% url 'cadastroCategoria' %}" class="btn btn-primary">Adicionar Categoria</a>
+<a href="{% url 'cadastroCategoria' %}" class="btn btn-primary">
+    <i class="fas fa-plus"></i> Categoria
+</a>
 <!--                 LISTAS DE TABELAS                                             -->
 
     <div class="row mt-3">
@@ -70,7 +72,7 @@
                         <td>
                             <a href="{% url 'atualizarCategoria' categoria.pk %}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
                             <a href="{% url 'deleteCategoria' categoria.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
-                            <a href="#" class="btn btn-info btn-sm"><i class="fas fa-search"></i></a>
+                         
                         </td>
                     </tr>
                     {% empty %}
@@ -149,7 +151,7 @@
                         <td>{{ receita.categoria }}</td>
                         <td>{{ receita.usuario }}</td>
                         <td class="d-flex">
-                            <a href="#" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></a>
+                    
                             <a href="#" class="btn btn-danger btn-sm mr-2"><i class="fas fa-trash-alt"></i></a>
                             <a href="#" class="btn btn-info btn-sm"><i class="fas fa-search"></i></a>
                         </td>
@@ -222,9 +224,9 @@
                             <td>{{ usuario.username }}</td>
                             <td>{{ usuario.email }}</td>
                             <td class="d-flex">
-                                <a href="#" class="btn btn-primary btn-sm mr-2"><i class="fas fa-edit"></i></a>
+                              
                                 <a href="#" class="btn btn-danger btn-sm mr-2"><i class="fas fa-trash-alt"></i></a>
-                                <a href="#" class="btn btn-info btn-sm"><i class="fas fa-search"></i></a>
+                                <a href="{% url 'detalhe_usuario' usuario.pk %}" class="btn btn-info btn-sm"><i class="fas fa-search"></i></a>
                             </td>
                             <!-- Adicione mais colunas conforme necessário -->
                         </tr>

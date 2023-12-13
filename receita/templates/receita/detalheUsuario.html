@@ -1,72 +1,111 @@
 {% extends 'base.html' %}
 {% load static %}
 
+
 {% block title %}Detalhe da receita{% endblock %}
+
 
 {% block 'conteudo' %}
 <br>
 <br>
 <br>
 
+
 <div class="container text-center" style="color: #000; font-family: 'Helvetica', sans-serif;">
-  <br>
-  <h2 class="display-4"> Nesta página você pode editar ou excluir a sua receita</h2>
-  <!-- Título acima do card -->
-  <hr>
+    <br>
+   
 
-  <div class="card mb-3 mx-auto" style="max-width: 600px;">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-md-6">
-          <img class="img-fluid" src="{{receita.img.url}}" alt="Imagem da Receita" style="max-width: 100%;">
+
+    <div class="row justify-content-center">
+        <div class="col-md-10"> <!-- Ajuste a largura conforme necessário -->
+            <div class="card bg-light">
+                <div class="card-body">
+                    <div class="card mb-3 mx-auto" style="max-width: 1000px;">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12"> <!-- Alterado para col-md-12 para ocupar toda a largura -->
+                                    <img class="img-fluid" src="{{receita.img.url}}" alt="Imagem da Receita"
+                                        style="width: 100%;">
+                                </div>
+                                <div class="col-md-12 mt-3">
+                                    <div class="col-md-12 mt-3">
+                                        <!-- Adicionado mt-3 para espaçamento entre a imagem e o conteúdo -->
+                                        <h5 class="card-title text-left">Nome</h5>
+                                        <p class="card-text text-left">{{receita.nome}}</p>
+                                   
+                                        <h5 class="card-title text-left">Ingredientes</h5>
+                                        <p class="card-text text-left">{{receita.ingredientes}}</p>
+                                   
+                                        <h5 class="card-title text-left">Modo de preparo</h5>
+                                        <p class="card-text text-left">{{receita.modo_preparo}}</p>
+                                   
+                                        <h5 class="card-title text-left">Data de cadastro</h5>
+                                        <p class="card-text text-left">{{receita.data_cadastro}}</p>
+                                   
+                                        <h5 class="card-title text-left">Categoria</h5>
+                                        <p class="card-text text-left">{{receita.categoria}}</p>
+                                   
+                                        <h5 class="card-title text-left">Criador:</h5>
+                                        <p class="card-text text-left">{{receita.usuario}}</p>
+                                    </div>
+
+
+
+
+                                    <!-- Botões de Editar/Remover -->
+                                    <div class="container text-right mt-3">
+                                        <a class="btn btn-primary mr-2"
+                                            href="{% url 'receitaeditar' receita.pk %}">Editar</a>
+                                        <a class="btn btn-danger" href="{% url 'delete' receita.pk %}">Remover</a>
+                                    </div>
+                                    <br>
+                                    <br>
+                                      <!-- Comentários -->
+                                <div class="container text-left mt-3">
+                                            <h2>Comentários</h2>
+                                    <!-- Formulário para Adicionar Comentário -->
+                                    <form method="post" action="{% url 'receitadetalheUsuario' pk=receita.pk %}"
+                                        class="form-inline d-flex justify-content-start mt-3">
+                                        {% csrf_token %}
+                                        <div class="input-group input-group-sm mb-2" style="width: 98%;">
+                                            <!-- Ajuste a largura conforme necessário -->
+                                            {{ form_comentario.texto }}
+                                            <div class="input-group-append">
+                                                <button type="submit" class="btn btn-sm btn-primary">Comentar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
+
+                                  
+
+
+                                        {% for comentario in comentarios %}
+                                        <div style="margin-bottom: 15px; overflow: hidden;">
+                                            <div style="width: 100%;"> <!-- Ajuste a largura conforme necessário -->
+                                                <p><strong>{{ comentario.usuario.username }}</strong> - <span class="text-muted">{{ comentario.data_criacao|timesince }}</span></p>
+                                                <p>{{ comentario.texto }}</p>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-          <h5 class="card-title">Nome</h5>
-          <p class="card-text">{{receita.nome}}</p>
-
-          <h5 class="card-title">Ingredientes</h5>
-          <p class="card-text">{{receita.ingredientes}}</p>
-
-          <h5 class="card-title">Modo de preparo</h5>
-          <p class="card-text">{{receita.modo_preparo}}</p>
-
-          <h5 class="card-title">Data de cadastro</h5>
-          <p class="card-text">{{receita.data_cadastro}}</p>
-
-          <h5 class="card-title">Categoria</h5>
-          <p class="card-text">{{receita.categoria}}</p>
-
-          <h5 class="card-title">Criador:</h5>
-          <p class="card-text">{{receita.usuario}}</p>
-
-          <div class="d-flex justify-content-center mt-3">
-            <a class="btn btn-primary mr-2" href="{% url 'receitaeditar' receita.pk %}">Editar</a>
-            <a class="btn btn-danger" href="{% url 'delete' receita.pk %}">Remover</a>
-          </div>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
-  <div class="container text-center mt-3">
-    <h2>Comentários</h2>
-  
-    <!-- Formulário para Adicionar Comentário -->
-    <form method="post" action="{% url 'receitadetalheUsuario' pk=receita.pk %}" class="form-inline d-flex justify-content-center">
-      {% csrf_token %}
-    
-      <div class="form-group mb-2" style="width: 70%; display: inline-block; justify-content: start;">
-        {{ form_comentario.texto }}
-      </div>
-    
-      <button type="submit" class="btn btn-primary mb-2 ml-2" style="display: inline-block;justify-content: start; width: 9%; ">Adicionar</button>
-    </form>
-    
-  
-    {% for comentario in comentarios %}
-      <p><strong>{{ comentario.usuario.username }}</strong>: {{ comentario.texto }}</p>
-      <p class="text-muted">{{ comentario.data_criacao }}</p>
-    {% endfor %}
-  </div>
-  
+
+
+
+<a href="#" class="btn btn-secondary mt-3">Voltar</a>
+</div>
+
+
 {% endblock 'conteudo' %}
