@@ -80,6 +80,7 @@ class receitadetalheUsuario(DetailView):
 class receitadetalheMural(DetailView):
     model = Receita
     template_name = "receita/detalheMural.html"
+    
 # ---------------Para o COMENTARIO-----------------
     context_object_name = "receita"
 
@@ -111,6 +112,7 @@ class receitaeditar(UpdateView):
   success_url = reverse_lazy("mural")
   template_name = 'receita/formReceita.html'
  # success_message = "Reserva atualizada com sucesso!"
+
 class delete(DeleteView):
     model = Receita
     template_name = 'receita/confirm.html'

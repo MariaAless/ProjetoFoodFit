@@ -11,17 +11,18 @@
 <br>
 <div class="container mt-5">
     <h2 class="text-center alert alert-danger">
-         Delete Categoria
+         Delete Usuario
     </h2>
 
     <div class="row">
         <div class="col-md">
            <form method="POST"> 
             {% csrf_token%}
-            <h5>Tem certeza que deseja a categoria {{categorias}}?</h5>
+            <h5>Tem certeza que deseja deletar o usuario {{usuarios}}?</h5>
             
             <input class="btn btn-danger" type="submit" value="Sim">
            
+          
             <a href="{% url 'areaAdmin' %}" class="btn btn-secondary">Voltar</a>
            
            </form>

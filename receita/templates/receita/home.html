@@ -13,27 +13,30 @@
 
 <div class="container">
 
-    <!--           MENSAGEM                  -->
-    {% if messages %}
-    {% for message in messages %}
-    <div class="alert alert-primary" role="alert">
+<!--           MENSAGEM                  -->
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
 
-        {{ message }}
-    </div>
+    {{ message }}
+</div>
 
-    </div>
-    {% endfor %}
-    {% endif %}
+</div>
+{% endfor %}
+{% endif %}
 
-<!--       FIM MENSAGEM                        -->
+<!--       FIM MENSAGEM       -->
 
-    <a href="{% url 'cadastroReceita' %}" class="btn btn-primary">Adicionar Novo</a>
+    <a href="{% url 'cadastroReceita' %}" class="btn btn-primary float-right">
+        <span class="fas fa-plus"></span> Adicionar
+    </a>
+    <br>
     <br>
     <br>
     <div class="row">
         {% for receita in receitas %}
             <div class="col-md-4 mb-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 20rem;">
                     <div class="card-body">
                         
                         <img width="50%" src="{{ receita.img.url }}" class="card-img-top" alt="{{ receita.nome }}">
