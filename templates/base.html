@@ -46,16 +46,19 @@
                     aria-controls="navbar-links" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse justify-content-end" id="navbar-links">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link text-white" id="home-menu" href="{% url 'home' %}">Home</a>
-                    <a class="nav-item nav-link text-white" id="services-menu" href="{% url 'mural' %}">Mural</a>
-                    <a class="nav-item nav-link text-white" id="services-menu" href="{% url 'areaAdmin' %}">Admin</a>
 
-                    <!-- Link "Sair" que abre o modal -->
-                    <a href="#" class="nav-item nav-link text-white" id="team-menu" data-toggle="modal" data-target="#logoutModal">
-                      {% trans "Sair" %}
-                    </a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbar-links">
+
+                <div class="navbar-nav">
+                    {% if user.is_authenticated %} 
+                          <a class="nav-item nav-link text-white" id="home-menu" href="{% url 'home' %}">Home</a>
+                          <a class="nav-item nav-link text-white" id="services-menu" href="{% url 'mural' %}">Mural</a>
+                          <a class="nav-item nav-link text-white" id="services-menu" href="{% url 'areaAdmin' %}">Admin</a>
+                          <!-- Link "Sair" que abre o modal -->
+                          <a href="#" class="nav-item nav-link text-white" id="team-menu" data-toggle="modal" data-target="#logoutModal">
+                            {% trans "Sair" %}
+                          </a>
+                    {%endif%}
                 </div>
             </div>
         </nav>

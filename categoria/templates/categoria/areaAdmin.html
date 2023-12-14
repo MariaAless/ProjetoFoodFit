@@ -18,25 +18,20 @@
     </div>
     <hr>
 
+   <!-- MENSAGEM -->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-primary" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+    <!-- FIM MENSAGEM --> 
 
-<!--           MENSAGEM                  -->
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-primary" role="alert">
-
-    {{ message }}
-</div>
-
-</div>
-{% endfor %}
-{% endif %}
-
-<!--       FIM MENSAGEM                        -->
-<!--                   QUANTIDADES                                              -->
+    <!-- QUANTIDADES -->
     <div class="row mt-3">
-       
         <div class="col-md-4">
-            <div class="card text-white bg-success mb-3">
+            <div class="card text-white bg-info mb-3">
                 <div class="card-header">Categoria</div>
                 <div class="card-body">
                     <h5 class="card-title">Total de Categorias cadastradas</h5>
@@ -45,7 +40,7 @@
             </div>
         </div>
         <div class="col-md-4">
-            <div class="card text-white bg-primary mb-3">
+            <div class="card text-white bg-info mb-3">
                 <div class="card-header">Receitas</div>
                 <div class="card-body">
                     <h5 class="card-title">Total de Receitas Cadastradas</h5>
@@ -53,9 +48,8 @@
                 </div>
             </div>
         </div>
-
         <div class="col-md-4">
-            <div class="card text-white bg-danger mb-3">
+            <div class="card text-white bg-info mb-3">
                 <div class="card-header">Usuarios</div>
                 <div class="card-body">
                     <h5 class="card-title">Total de usuários cadastrados</h5>
@@ -64,15 +58,17 @@
             </div>
         </div>
     </div>
-<!--                  FIM  QUANTIDADES                                              -->
-<a href="{% url 'cadastroCategoria' %}" class="btn btn-primary">
-    <i class="fas fa-plus"></i> Categoria
-</a>
-<!--                 LISTAS DE TABELAS                                             -->
+    <!-- FIM QUANTIDADES -->
 
+    <a style="background-color:#333;" href="{% url 'cadastroCategoria' %}" class="btn btn-primary">
+        <i class="fas fa-plus"></i> Categoria
+    </a>
+
+    <!-- LISTAS DE TABELAS -->
     <div class="row mt-3">
         <div class="col-md-12">
-            <h2>Lista de Categorias</h2>
+            <h3 style="color: #333; font-size: 33px; font-weight: bold;" class="text-center" >Lista de Categorias</h3>
+            <br>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -82,22 +78,23 @@
                 </thead>
                 <tbody>
                     {% for categoria in categorias %}
-                    <tr>
-                        <td>{{ categoria.nome }}</td>
-                        <td>
-                            <a href="{% url 'atualizarCategoria' categoria.pk %}" class="btn btn-primary btn-sm"><i class="fas fa-edit"></i></a>
-                            <a href="{% url 'deleteCategoria' categoria.pk %}" class="btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></a>
-                         
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ categoria.nome }}</td>
+                            <td>
+                                <a href="{% url 'atualizarCategoria' categoria.pk %}" class="btn btn-primary btn-sm"><i
+                                        class="fas fa-edit"></i></a>
+                                <a href="{% url 'deleteCategoria' categoria.pk %}" class="btn btn-danger btn-sm"><i
+                                        class="fas fa-trash-alt"></i></a>
+                            </td>
+                        </tr>
                     {% empty %}
-                    <tr>
-                        <td colspan="2">Nenhuma categoria cadastrada</td>
-                    </tr>
+                        <tr>
+                            <td colspan="2">Nenhuma categoria cadastrada</td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            
+
             <!-- Adicione a paginação para a lista de categorias -->
             <div class="pagination mt-3">
                 <nav aria-label="Page navigation">
@@ -109,7 +106,8 @@
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?categorias_page={{ categorias.previous_page_number }}" aria-label="Previous">
+                                <a class="page-link" href="?categorias_page={{ categorias.previous_page_number }}"
+                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -121,12 +119,14 @@
                         {% endfor %}
                         {% if categorias.has_next %}
                             <li class="page-item">
-                                <a class="page-link" href="?categorias_page={{ categorias.next_page_number }}" aria-label="Next">
+                                <a class="page-link" href="?categorias_page={{ categorias.next_page_number }}"
+                                    aria-label="Next">
                                     <span aria-hidden="true">&raquo;</span>
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?categorias_page={{ categorias.paginator.num_pages }}" aria-label="Last">
+                                <a class="page-link" href="?categorias_page={{ categorias.paginator.num_pages }}"
+                                    aria-label="Last">
                                     <span aria-hidden="true">&raquo;&raquo;</span>
                                 </a>
                             </li>
@@ -134,18 +134,18 @@
                     </ul>
                 </nav>
             </div>
-            
-            
+
         </div>
     </div>
 
     <div class="row mt-3">
         <div class="col-md-12">
-            <h2>Lista de Receitas</h2>
+            <h3 style="color: #333; font-size: 33px; font-weight: bold;" class="text-center" >Lista de Receitas</h3>
+            <br>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">Imagem</th>
+                       
                         <th scope="col">Nome</th>
                         <th scope="col">Ingredientes</th>
                         <th scope="col">Data de Cadastro</th>
@@ -157,28 +157,29 @@
                 </thead>
                 <tbody>
                     {% for receita in receitas %}
-                    <tr>
-                        <td>{{ receita.img }}</td>
-                        <td>{{ receita.nome }}</td>
-                        <td>{{ receita.ingredientes }}</td>
-                        <td>{{ receita.data_cadastro }}</td>
-                        <td>{{ receita.modo_preparo }}</td>
-                        <td>{{ receita.categoria }}</td>
-                        <td>{{ receita.usuario }}</td>
-                        <td class="d-flex">
-                    
-                            <a href="{% url 'deleteReceita' receita.pk %}" class="btn btn-danger btn-sm mr-2"><i class="fas fa-trash-alt"></i></a>
-                            <a href="{% url 'receitadetalhe' receita.pk %}" class="btn btn-info btn-sm"><i class="fas fa-search"></i></a>
-                        </td>
-                    </tr>
+                        <tr>
+                           
+                            <td>{{ receita.nome }}</td>
+                            <td>{{ receita.ingredientes }}</td>
+                            <td>{{ receita.data_cadastro }}</td>
+                            <td>{{ receita.modo_preparo }}</td>
+                            <td>{{ receita.categoria }}</td>
+                            <td>{{ receita.usuario }}</td>
+                            <td class="d-flex">
+                                <a href="{% url 'deleteReceita' receita.pk %}" class="btn btn-danger btn-sm mr-2"><i
+                                        class="fas fa-trash-alt"></i></a>
+                                <a href="{% url 'receitadetalhe' receita.pk %}" class="btn btn-info btn-sm"><i
+                                        class="fas fa-search"></i></a>
+                            </td>
+                        </tr>
                     {% empty %}
-                    <tr>
-                        <td colspan="8">Nenhuma receita cadastrada</td>
-                    </tr>
+                        <tr>
+                            <td colspan="8">Nenhuma receita cadastrada</td>
+                        </tr>
                     {% endfor %}
                 </tbody>
             </table>
-            
+
             <!-- Adicione a paginação para a lista de receitas -->
             <div class="pagination mt-3">
                 <nav aria-label="Page navigation">
@@ -190,7 +191,8 @@
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?receitas_page={{ receitas.previous_page_number }}" aria-label="Previous">
+                                <a class="page-link" href="?receitas_page={{ receitas.previous_page_number }}"
+                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
@@ -221,7 +223,8 @@
     <div class="row mt-3">
         <div class="col-md-12">
             <!-- Adicione esta tabela para exibir a lista de usuários -->
-            <h2>Lista de Usuarios</h2>
+            <h3 style="color: #333; font-size: 33px; font-weight: bold;" class="text-center" >Lista de Usuários</h3>
+            <br>
             <table class="table">
                 <thead class="thead-dark">
                     <tr>
@@ -239,9 +242,8 @@
                             <td>{{ usuario.username }}</td>
                             <td>{{ usuario.email }}</td>
                             <td class="d-flex">
-                              
-                                <a href="{% url 'deleteUsuario' usuario.pk %}" class="btn btn-danger btn-sm mr-2"><i class="fas fa-trash-alt"></i></a>
-                               
+                                <a href="{% url 'deleteUsuario' usuario.pk %}" class="btn btn-danger btn-sm mr-2"><i
+                                        class="fas fa-trash-alt"></i></a>
                             </td>
                             <!-- Adicione mais colunas conforme necessário -->
                         </tr>
@@ -260,14 +262,13 @@
                                 </a>
                             </li>
                             <li class="page-item">
-                                <a class="page-link" href="?usuarios_page={{ usuarios.previous_page_number }}" aria-label="Previous">
+                                <a class="page-link" href="?usuarios_page={{ usuarios.previous_page_number }}"
+                                    aria-label="Previous">
                                     <span aria-hidden="true">&laquo;</span>
                                 </a>
                             </li>
                         {% endif %}
                         {% for pg in usuarios.paginator.page_range %}
-                           
-                    
                             <li class="page-item {% if usuarios.number == pg %}active{% endif %}">
                                 <a class="page-link" href="?usuarios_page={{ pg }}">{{ pg }}</a>
                             </li>
@@ -287,9 +288,11 @@
                     </ul>
                 </nav>
             </div>
-                </div>
+        </div>
+    </div>
 
-            </div>
-            </div>
+</div>
 
-            {% endblock 'conteudo' %}
+
+
+{% endblock 'conteudo' %}

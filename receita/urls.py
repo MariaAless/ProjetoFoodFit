@@ -10,7 +10,8 @@ urlpatterns = [
     path('receitadetalheUsuario/<int:pk>/',views.receitadetalheUsuario.as_view(), name='receitadetalheUsuario'),
     path('receitadetalheMural/<int:pk>/',views.receitadetalheMural.as_view(), name='receitadetalheMural'),
     path('receitaeditar/<int:pk>/',views.receitaeditar.as_view(), name='receitaeditar'),
-    path('delete/<int:pk>/',views.delete.as_view(), name='delete'),
+  #  path('delete/<int:pk>/',views.delete.as_view(), name='delete'),
+    path('delete_receita/<int:pk>/', views.DeleteReceita.as_view(), name='delete_receita'),
     
    
     

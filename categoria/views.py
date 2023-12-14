@@ -46,11 +46,12 @@ class areaAdmin(GerentePermission,ListView):
         return render(request, self.template_name, context)
 
 
-class cadastroCategoria(GerentePermission,CreateView):
+class cadastroCategoria(GerentePermission,views.SuccessMessageMixin,CreateView):
     form_class = CategoriaForm
     model = Categoria
     template_name = 'categoria/formCategoria.html'
     success_url = reverse_lazy('areaAdmin')
+    success_message = "categoria cadastrada com sucesso!"
 
 class deleteCategoria(views.SuccessMessageMixin,DeleteView):
     model = Categoria

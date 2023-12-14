@@ -17,7 +17,7 @@ class home(ListView):
     model = Receita
     context_object_name = 'receitas'
     queryset = Receita.objects.all()
-    success_message = "Reserva criada com sucesso!"
+ 
 
     def get_queryset(self):
         return self.queryset.filter(usuario=self.request.user)
@@ -38,11 +38,12 @@ class mural(ListView):
 
 
 
-class cadastroReceita(CreateView,views.SuccessMessageMixin):
+class cadastroReceita(views.SuccessMessageMixin,CreateView):
     form_class = ReceitaForm
     model = Receita
     template_name = 'receita/formReceita.html'
     success_url = reverse_lazy('home')
+    success_message = "Receita criada com sucesso!"
     
 
     def form_valid(self, form):
@@ -106,17 +107,25 @@ class receitadetalheMural(DetailView):
 
         return self.get(request, *args, **kwargs)
 
-class receitaeditar(UpdateView):
+class receitaeditar(views.SuccessMessageMixin,UpdateView):
   model = Receita
   form_class =  ReceitaForm
-  success_url = reverse_lazy("mural")
+  success_url = reverse_lazy("home")
   template_name = 'receita/formReceita.html'
- # success_message = "Reserva atualizada com sucesso!"
+  success_message = "Reserva atualizada com sucesso!"
 
-class delete(DeleteView):
+class DeleteReceita(views.SuccessMessageMixin,DeleteView):
     model = Receita
-    template_name = 'receita/confirm.html'
-    success_url = reverse_lazy("home")
-    context_object_name= "receitas"
-  #  success_message = "Reserva deletada com sucesso!"
+    template_name = 'detalheUsuario.html'  # Substitua pelo nome do seu template
+    success_url = reverse_lazy('home')  # Redireciona para a página desejada após a exclusão
+    success_message = "Receita deletada com sucesso!"
+   
+    def get_object(self, queryset=None):
+        return Receita.objects.get(pk=self.kwargs['pk'])
+
+    def delete(self, request, *args, **kwargs):
+        receita = self.get_object()
+        # Adicione sua lógica adicional aqui, se necessário
+        receita.delete()
+        return redirect('home')
 

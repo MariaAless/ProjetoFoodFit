@@ -9,19 +9,17 @@
 <br>
 <br>
 <div class="container">
-
     <div class="row justify-content-center">
         <div class="col-md-8">
 
-            <!-- Card preto acinzentado para o nome do formulário -->
-            <div style="background-color:  #99c2ff"  class="card  text-black mb-3">
-                <div class="card-body text-center">
-                    <h2>Formulário</h2>
-                </div>
-            </div>
-
             <!-- Card preto acinzentado arredondado para o formulário -->
-            <div style="background-color:  #f2f2f2" class="card text-black rounded-lg p-3">
+            <div style="background-color: #f2f2f2" class="card text-black rounded-lg p-3">
+                <div class="card-body text-center">
+                    <h2 style="color: #333; font-size: 36px; font-weight: bold;">Cadastre sua receita</h2>
+                    <hr>
+                </div>
+                
+
                 <form class="mx-auto" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
@@ -51,10 +49,9 @@
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mx-auto" style="width: 150px;height: 45px;">Enviar</button>
                     </div>
-                    
-                    
+
                 </form>
             </div>
 

@@ -8,23 +8,34 @@
 <br>
 <br>
 <br>
+<br>
+<br>
+<br>
+<br>
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6 d-flex justify-content-center"> <!-- Adicionado a classe d-flex e justify-content-center -->
             <!-- Card arredondado com a cor secundária do Bootstrap para o formulário -->
-            <div style="background-color: #f2f2f2" class="card text-black rounded-lg p-3">
-                <h2 class="text-center">Formulário</h2>
+            <div style="background-color: #f2f2f2; width: 70%;" class="card text-black rounded-lg p-3">
+                <h2 class="text-center" style="color: #333; font-size: 36px; font-weight: bold;"> Categoria</h2>
+                <hr>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
 
                     <div class="form-group text-left">
                         <label for="{{ form.nome.id_for_label }}">Nome:</label>
-                        {{ form.nome }}
+                        {% if form.nome.value %}
+                            <input type="text" class="form-control" id="{{ form.nome.id_for_label }}" name="{{ form.nome.name }}" value="{{ form.nome.value }}"
+                            style="width: 100%;" {% if form.nome.required %}required{% endif %}>
+                        {% else %}
+                            <input type="text" class="form-control" id="{{ form.nome.id_for_label }}" name="{{ form.nome.name }}" style="width: 100%;" {% if form.nome.required %}required{% endif %}>
+                        {% endif %}
                     </div>
-
+                    <br>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Enviar</button>
+                        <button type="submit" class="btn btn-primary btn-lg btn-block mx-auto" style="width: 150px;height: 45px;">Enviar</button>
                     </div>
+                    
                 </form>
             </div>
         </div>

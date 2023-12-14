@@ -10,23 +10,31 @@
 <br>
 <br>
 <br>
+<br>
 
 <div class="container">
+    <i class="fas fa-user-circle fa-3x"></i> <!-- Ícone de usuário -->
+    <span class="font-weight-bold" style="font-size: 2em;">{{ user.username }}</span>
+    <hr>
+    <br>  
+     
+        <div class="container"> 
+            <!--           MENSAGEM                  -->
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-primary" role="alert">
 
-<!--           MENSAGEM                  -->
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-primary" role="alert">
+            {{ message }}
+        </div>
 
-    {{ message }}
-</div>
+        </div>
+        {% endfor %}
+        {% endif %}
 
-</div>
-{% endfor %}
-{% endif %}
+        </div>
 
-<!--       FIM MENSAGEM       -->
-
+<br>
+<br>
     <a href="{% url 'cadastroReceita' %}" class="btn btn-primary float-right">
         <span class="fas fa-plus"></span> Adicionar
     </a>
