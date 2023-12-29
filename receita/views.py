@@ -28,6 +28,7 @@ class mural(ListView):
     model = Receita
     context_object_name = 'receitas'
     queryset = Receita.objects.all()
+    
 
     def get_queryset(self):
         query = self.request.GET.get('q')

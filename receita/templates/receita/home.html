@@ -5,6 +5,12 @@
 {% block title %}Home{% endblock %}
 
 {% block 'conteudo' %}
+
+
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <br>
@@ -12,26 +18,29 @@
 <br>
 <br>
 
+    <!--           MENSAGEM                  -->
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-primary" role="alert">
+
+    {{ message }}
+</div>
+
+
+{% endfor %}
+{% endif %}
+<br>
+<br>
+<br>
+</div>
 <div class="container">
+    <br>
+    <br>
     <i class="fas fa-user-circle fa-3x"></i> <!-- Ícone de usuário -->
     <span class="font-weight-bold" style="font-size: 2em;">{{ user.username }}</span>
     <hr>
     <br>  
      
-        <div class="container"> 
-            <!--           MENSAGEM                  -->
-        {% if messages %}
-        {% for message in messages %}
-        <div class="alert alert-primary" role="alert">
-
-            {{ message }}
-        </div>
-
-        </div>
-        {% endfor %}
-        {% endif %}
-
-        </div>
 
 <br>
 <br>

@@ -24,10 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-mq)a49*+86ri_z&9kpsvow7ypea5wydaaklx5j@uh73i#bg#9o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+CSRF_TRUSTED_ORIGINS = ['http://localhost:83','http://127.0.0.1']
 
 # Application definition
 
@@ -102,8 +103,12 @@ ACCOUNT_EMAIL_VERIFICATION = "none"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'foodfit',
+        'USER': 'postgres',
+        'PASSWORD': 'etal2030',
+        'HOST': 'postgres',
+        'PORT': '5432',
     }
 }
 
@@ -161,6 +166,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
+STATIC_URL = '/static/'
+
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 # Media
 # ------------------------------------------------------------------------------
 
@@ -179,3 +188,5 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configuração para o tamanho máximo de upload em bytes
+DATA_UPLOAD_MAX_MEMORY_SIZE = 20 * 1024 * 1024  # por exemplo, 20 MB
